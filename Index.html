@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chase Banking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div id="loadingSpinner"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>Chase</h1>
+                <div class="logo-icon" id="logoImage"></div>
+            </div>
+            <div class="login-container">
+                <div class="login-header">
+                    <h2>CHASE</h2>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <div class="show-password" id="togglePassword">
+                            <i class="far fa-eye"></i>
+                            <span>Show</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="remember-me">
+                            <input type="checkbox" id="useToken">
+                            <label for="useToken">Use token</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="sign-in-btn">Sign in</button>
+                    <div class="login-links">
+                        <a href="#" id="forgotPassword">Forgot username/password? ➤</a>
+                        <a href="#" id="signUp">Not enrolled? Sign up now. ➤</a>
+                    </div>
+                </form>
+                <div class="login-footer">
+                    <div class="login-footer-links">
+                        <a href="#">Contact us</a>
+                        <a href="#">Privacy & security</a>
+                        <a href="#">Terms of use</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                    <p>SAFE Act: Chase Mortgage Loan Originators</p>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard (Hidden by default) -->
+        <main class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2>Good evening <span id="userName">Josh</span></h2>
+                    <p id="currentDate">Aug 30, 2025</p>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="action-btn" id="sendMoneyBtn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send money</span>
+                </button>
+                <button class="action-btn" id="payBillsBtn">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Pay bills</span>
+                </button>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="accounts-section">
+                <h3>Accounts</h3>
+                <div class="account-card">
+                    <div class="account-header">
+                        <div class="account-name" id="accountType">CHASE CHECKING ACCOUNT</div>
+                        <div class="account-balance" id="balance">$803,543.23</div>
+                    </div>
+                    <p>Available balance</p>
+                    <div class="account-actions">
+                        <button class="account-action" id="openAccountBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Open an account</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h4>Spending summary</h4>
+                    <p>See your spending by category</p>
+                    <button class="feature-btn" id="spendingSummaryBtn">View</button>
+                </div>
+                <div class="feature">
+                    <h4>Credit journey</h4>
+                    <p>Check your free credit score</p>
+                    <button class="feature-btn" id="creditJourneyBtn">Check</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Transfer Modal -->
+    <div class="modal" id="transferModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Send Money</h3>
+                <button class="close-modal" id="closeTransferModal">&times;</button>
+            </div>
+            <form id="transferForm">
+                <div class="form-group">
+                    <label for="recipient">Recipient</label>
+                    <input type="text" id="recipient" placeholder="Enter recipient name or email" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" placeholder="Enter amount" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" placeholder="Add a message" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="remember-me">
+                        <input type="checkbox" id="requestOtp">
+                        <label for="requestOtp">Request OTP via email</label>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" id="cancelTransfer">Cancel</button>
+                <button class="modal-btn confirm-btn" id="confirmTransfer">Send Money</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- OTP Modal -->
+    <div class="modal" id="otpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Verify Transaction</h3>
+                <button class="close-modal" id="closeOtpModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" placeholder="Enter OTP sent to your email" required>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" id="cancelOtp">Cancel</button>
+                <button class="modal-btn confirm-btn" id="confirmOtp">Verify</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/transactions.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
