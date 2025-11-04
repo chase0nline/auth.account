@@ -1,4 +1,4 @@
-# Chase Banking Simulation
+# Chase Banking
 
 A fully-featured banking interface simulation built with HTML, CSS, and JavaScript.
 
